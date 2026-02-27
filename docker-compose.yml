@@ -1,0 +1,121 @@
+# ================================================================
+# Aarohan++ — NHCX Compliance Intelligence Platform
+# Docker Compose — Full Development Stack
+# ================================================================
+# Usage:  docker-compose up -d
+#         docker-compose logs -f api
+# ================================================================
+
+services:
+  # ─── HAPI FHIR R4 Server ─────────────────────────────────────
+  fhir-server:
+    image: hapiproject/hapi:latest
+    container_name: aarohan-fhir
+    ports:
+      - "8080:8080"
+    environment:
+      - hapi.fhir.default_encoding=json
+      - hapi.fhir.fhir_version=R4
+      - hapi.fhir.allow_external_references=true
+      - hapi.fhir.allow_multiple_delete=true
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/hapi_fhir
+      - spring.datasource.username=aarohan
+      - spring.datasource.password=aarohan_dev
+      - spring.datasource.driver-class-name=org.postgresql.Driver
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - aarohan-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/fhir/metadata || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # ─── PostgreSQL Database ─────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: aarohan-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: aarohan
+      POSTGRES_PASSWORD: aarohan_dev
+      POSTGRES_DB: aarohan_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/data/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - aarohan-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aarohan -d aarohan_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Redis (Terminology Cache) ───────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: aarohan-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - aarohan-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Aarohan API Server ──────────────────────────────────────
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: aarohan-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://aarohan:aarohan_dev@postgres:5432/aarohan_db
+      - REDIS_URL=redis://redis:6379/0
+      - FHIR_SERVER_URL=http://fhir-server:8080/fhir
+      - DEBUG=true
+    volumes:
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      fhir-server:
+        condition: service_healthy
+    networks:
+      - aarohan-net
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # ─── Dummy Payer Service (Mock) ──────────────────────────────
+  dummy-payer:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.payer
+    container_name: aarohan-dummy-payer
+    ports:
+      - "8090:8090"
+    networks:
+      - aarohan-net
+    profiles:
+      - with-payer
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  aarohan-net:
+    driver: bridge

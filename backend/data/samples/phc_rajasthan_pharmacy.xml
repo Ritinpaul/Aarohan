@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PharmacyExport xmlns="urn:phc-rajasthan:pharmacy:v1" exportDate="2024-11-25" facilityId="PHC-RJ-089">
+  <FacilityInfo>
+    <Name>Primary Health Centre, Kishangarh</Name>
+    <District>Ajmer</District>
+    <State>Rajasthan</State>
+    <Tier>PHC</Tier>
+    <ContactNumber>0145-2688100</ContactNumber>
+  </FacilityInfo>
+
+  <Prescriptions>
+    <Prescription id="RX-2024-3301">
+      <Patient>
+        <Name>Geeta Bai</Name>
+        <FatherHusbandName>Ramlal</FatherHusbandName>
+        <Age>62</Age>
+        <Gender>Female</Gender>
+        <Phone>8899776655</Phone>
+        <Address>Gram Panchayat Sarwar, Ajmer</Address>
+        <BPLCard>BPL-RJ-AJ-2019-44521</BPLCard>
+      </Patient>
+      <Visit>
+        <Date>2024-11-25</Date>
+        <Type>OPD</Type>
+        <Complaint>जोड़ों में दर्द और सूजन (Joint pain and swelling)</Complaint>
+        <Diagnosis>Rheumatoid Arthritis</Diagnosis>
+        <DiagnosisCode></DiagnosisCode>
+      </Visit>
+      <Medications>
+        <Drug>
+          <BrandName>Combiflam</BrandName>
+          <GenericName>Ibuprofen + Paracetamol</GenericName>
+          <Dosage>1 tablet</Dosage>
+          <Frequency>TID</Frequency>
+          <Duration>7 days</Duration>
+          <DrugCode></DrugCode>
+        </Drug>
+        <Drug>
+          <BrandName>Folvite</BrandName>
+          <GenericName>Folic Acid</GenericName>
+          <Dosage>5mg</Dosage>
+          <Frequency>OD</Frequency>
+          <Duration>30 days</Duration>
+          <DrugCode></DrugCode>
+        </Drug>
+        <Drug>
+          <BrandName>Methotrexate</BrandName>
+          <GenericName>Methotrexate</GenericName>
+          <Dosage>7.5mg</Dosage>
+          <Frequency>Weekly</Frequency>
+          <Duration>12 weeks</Duration>
+          <DrugCode></DrugCode>
+        </Drug>
+      </Medications>
+      <LabOrders>
+        <Lab>
+          <TestName>RA Factor</TestName>
+          <TestCode></TestCode>
+        </Lab>
+        <Lab>
+          <TestName>ESR</TestName>
+          <TestCode></TestCode>
+        </Lab>
+        <Lab>
+          <TestName>CBC</TestName>
+          <TestCode></TestCode>
+        </Lab>
+      </LabOrders>
+      <Referral>
+        <ReferredTo>District Hospital Ajmer</ReferredTo>
+        <Reason>Specialist rheumatology consultation needed</Reason>
+      </Referral>
+    </Prescription>
+
+    <Prescription id="RX-2024-3302">
+      <Patient>
+        <Name>Bhanwar Lal</Name>
+        <FatherHusbandName>Kalyan Singh</FatherHusbandName>
+        <Age>8</Age>
+        <Gender>Male</Gender>
+        <Phone>7788990011</Phone>
+        <Address>Ward 3, Kishangarh Town</Address>
+        <BPLCard></BPLCard>
+      </Patient>
+      <Visit>
+        <Date>2024-11-25</Date>
+        <Type>OPD</Type>
+        <Complaint>तेज़ बुखार, उल्टी, दस्त (High fever, vomiting, diarrhoea)</Complaint>
+        <Diagnosis>Acute Gastroenteritis</Diagnosis>
+        <DiagnosisCode>A09</DiagnosisCode>
+      </Visit>
+      <Medications>
+        <Drug>
+          <BrandName>Electral Powder</BrandName>
+          <GenericName>ORS</GenericName>
+          <Dosage>1 sachet in 1L water</Dosage>
+          <Frequency>SOS</Frequency>
+          <Duration>3 days</Duration>
+          <DrugCode></DrugCode>
+        </Drug>
+        <Drug>
+          <BrandName>Crocin Drops</BrandName>
+          <GenericName>Paracetamol</GenericName>
+          <Dosage>0.5ml per kg</Dosage>
+          <Frequency>QID</Frequency>
+          <Duration>3 days</Duration>
+          <DrugCode></DrugCode>
+        </Drug>
+        <Drug>
+          <BrandName>Norflox-TZ</BrandName>
+          <GenericName>Norfloxacin + Tinidazole</GenericName>
+          <Dosage>Half tablet</Dosage>
+          <Frequency>BID</Frequency>
+          <Duration>5 days</Duration>
+          <DrugCode></DrugCode>
+        </Drug>
+      </Medications>
+      <LabOrders/>
+      <Referral/>
+    </Prescription>
+  </Prescriptions>
+</PharmacyExport>

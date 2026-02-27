@@ -1,0 +1,160 @@
+{
+    "facility_tiers": [
+        {
+            "tier": 1,
+            "name": "Medical College / Tertiary Hospital",
+            "keywords": [
+                "medical college",
+                "AIIMS",
+                "PGIMER",
+                "JIPMER",
+                "university hospital",
+                "super specialty",
+                "tertiary"
+            ],
+            "nhcx_profile_level": "full",
+            "typical_capabilities": [
+                "All specialties",
+                "Teaching hospital",
+                "Research",
+                "ICU",
+                "NICU"
+            ],
+            "expected_data_quality": "high",
+            "estimated_fhir_readiness": 60,
+            "examples": [
+                "All India Institute of Medical Sciences, Delhi",
+                "Christian Medical College, Vellore",
+                "Patna Medical College and Hospital",
+                "Darbhanga Medical College",
+                "Anugrah Narayan Magadh Medical College"
+            ]
+        },
+        {
+            "tier": 2,
+            "name": "District Hospital / Sub-Divisional Hospital",
+            "keywords": [
+                "district hospital",
+                "civil hospital",
+                "general hospital",
+                "sadar hospital",
+                "sub-divisional",
+                "SDH"
+            ],
+            "nhcx_profile_level": "full",
+            "typical_capabilities": [
+                "General medicine",
+                "Surgery",
+                "OBG",
+                "Paediatrics",
+                "Ortho"
+            ],
+            "expected_data_quality": "medium",
+            "estimated_fhir_readiness": 35,
+            "examples": [
+                "District Hospital Patna",
+                "Sadar Hospital Hajipur",
+                "Civil Hospital Ahmedabad",
+                "Sub-Divisional Hospital Rajgir"
+            ]
+        },
+        {
+            "tier": 3,
+            "name": "Community Health Centre (CHC)",
+            "keywords": [
+                "community health",
+                "CHC",
+                "block hospital",
+                "rural hospital"
+            ],
+            "nhcx_profile_level": "basic",
+            "typical_capabilities": [
+                "General medicine",
+                "Basic surgery",
+                "Maternal care"
+            ],
+            "expected_data_quality": "low",
+            "estimated_fhir_readiness": 15,
+            "examples": [
+                "CHC Barh, Patna",
+                "Community Health Centre, Manpur"
+            ]
+        },
+        {
+            "tier": 4,
+            "name": "Primary Health Centre (PHC)",
+            "keywords": [
+                "primary health",
+                "PHC",
+                "health centre",
+                "swasthya kendra"
+            ],
+            "nhcx_profile_level": "minimal",
+            "typical_capabilities": [
+                "OPD",
+                "Immunisation",
+                "Maternal care",
+                "Basic labs"
+            ],
+            "expected_data_quality": "very_low",
+            "estimated_fhir_readiness": 5,
+            "examples": [
+                "PHC Begusarai",
+                "Primary Health Centre, Kishangarh",
+                "PHC Sonepur"
+            ]
+        },
+        {
+            "tier": 5,
+            "name": "Health Sub-Centre / Health & Wellness Centre",
+            "keywords": [
+                "sub-centre",
+                "health sub",
+                "HWC",
+                "wellness centre",
+                "ayushman arogya mandir"
+            ],
+            "nhcx_profile_level": "minimal",
+            "typical_capabilities": [
+                "Basic OPD",
+                "Preventive care",
+                "Referral"
+            ],
+            "expected_data_quality": "very_low",
+            "estimated_fhir_readiness": 2,
+            "examples": [
+                "HSC Chandpur, Vaishali",
+                "Ayushman Arogya Mandir, Darbhanga"
+            ]
+        }
+    ],
+    "classification_rules": {
+        "priority_order": [
+            "exact_match",
+            "keyword_match",
+            "fuzzy_match"
+        ],
+        "fuzzy_threshold": 80,
+        "default_tier": 2,
+        "nin_code_prefix_mapping": {
+            "AIIMS": 1,
+            "MC": 1,
+            "GMC": 1,
+            "MMC": 1,
+            "DH": 2,
+            "CH": 2,
+            "SH": 2,
+            "SDH": 2,
+            "CHC": 3,
+            "BH": 3,
+            "PHC": 4,
+            "HSC": 5,
+            "HWC": 5
+        }
+    },
+    "metadata": {
+        "total_tiers": 5,
+        "last_updated": "2024-11-01",
+        "source": "NHA Facility Registry, Indian Public Health Standards (IPHS)"
+    }
+}

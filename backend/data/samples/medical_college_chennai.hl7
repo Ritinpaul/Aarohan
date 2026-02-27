@@ -1,0 +1,12 @@
+MSH|^~\&|HIS|CMCH-TN-001|NHCX|NHCX-GATEWAY|20241120143025||ADT^A01|MSG-20241120-001|P|2.5|||AL|NE
+EVN|A01|20241120143025
+PID|1||CMCH-2024-88901^^CMCH||நிர்மலா^தேவி||19900315|F|||42 Anna Nagar, Vellore^^Vellore^Tamil Nadu^632001||9988001122|||S|||ABHA-99887766^^^^ABHA
+PV1|1|I|ICU-BED-12^ICU^CMCH||||DOC-4421^Venkatesh^Dr.^R|||CAR|||||||DOC-4421^Venkatesh^Dr.^R|IP|IP-2024-5567||||||||||||||||||||20241120143025
+DG1|1||I21.0^ST elevated myocardial infarction^ICD-10|||A
+IN1|1|CMCHIS-TN|CMCHIS|Tamil Nadu CM Comprehensive Health Insurance Scheme|||||||||||||||||||||||||||
+PR1|1||0066.0^Coronary Angioplasty with Stent^LOCAL||||20241120160000
+OBX|1|NM|2708-6^Oxygen saturation^LOINC||94|%|95-100|L|||F
+OBX|2|NM|8867-4^Heart rate^LOINC||112|/min|60-100|H|||F
+OBX|3|NM|8480-6^Systolic BP^LOINC||85|mmHg|90-120|L|||F
+OBX|4|ST|FREE_TEXT^Clinical Notes^LOCAL||Patient admitted with severe chest pain radiating to left arm. ECG shows ST elevation in leads V1-V4. Troponin I elevated at 12.5 ng/mL. Started on dual antiplatelet therapy. Urgent PCI planned.||||||F
+AL1|1|DA|^^LOCAL|SV|Penicillin|Anaphylaxis

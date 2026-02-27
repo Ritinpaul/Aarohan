@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+
+# Docker
+docker-compose.override.yml
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# ── Private / hackathon-internal ────────────────────────────────────────────
+
+# Given sample data (private, not for public repo)
+given_data/
+
+# Test files
+backend/tests/
+tests/
+
+# Docs directory (internal reference docs)
+docs/
+
+# CI/CD (not publishing workflows yet)
+.github/
+
+# Markdown files except README
+task_file.md
+implementation_plan.md
+info1.md
+PROGRESS.md
+SUMMARY.md
+.gemini/
+EVALUATION*.md
+
+backend/data/eval_reports/
+backend/data/fingerprints.json
+
+# NRCeS FHIR profiles (downloaded at runtime)
+backend/profiles/

@@ -1,0 +1,212 @@
+{
+    "schemes": [
+        {
+            "id": "PMJAY",
+            "full_name": "Pradhan Mantri Jan Arogya Yojana (Ayushman Bharat)",
+            "coverage_amount": 500000,
+            "coverage_unit": "INR per family per year",
+            "eligibility": {
+                "type": "income_based",
+                "criteria": "Bottom 40% of population (SECC 2011 database)",
+                "bpl_required": true,
+                "age_limit": null
+            },
+            "states_active": [
+                "BR",
+                "UP",
+                "MP",
+                "RJ",
+                "JH",
+                "CT",
+                "HR",
+                "DL",
+                "UK",
+                "SK",
+                "MN",
+                "MZ",
+                "NL",
+                "AR",
+                "TR",
+                "AN",
+                "DD",
+                "LA",
+                "JK",
+                "PY"
+            ],
+            "claim_types": [
+                "IPD",
+                "Day Care"
+            ],
+            "preauth_required": true,
+            "nhcx_profile": "NRCeSCoverage",
+            "hbp_packages": 1949,
+            "network": "nhcx"
+        },
+        {
+            "id": "CMCHIS",
+            "full_name": "Chief Minister's Comprehensive Health Insurance Scheme",
+            "coverage_amount": 500000,
+            "coverage_unit": "INR per family per year",
+            "eligibility": {
+                "type": "income_based",
+                "criteria": "Annual income < ₹72,000",
+                "bpl_required": false,
+                "age_limit": null
+            },
+            "states_active": [
+                "TN"
+            ],
+            "claim_types": [
+                "IPD",
+                "Day Care",
+                "OPD (select)"
+            ],
+            "preauth_required": true,
+            "nhcx_profile": "NRCeSCoverage",
+            "hbp_packages": 1036,
+            "network": "nhcx"
+        },
+        {
+            "id": "YSR_AAROGYASRI",
+            "full_name": "YSR Aarogyasri Health Care Trust",
+            "coverage_amount": 1000000,
+            "coverage_unit": "INR per family per year",
+            "eligibility": {
+                "type": "income_based",
+                "criteria": "White ration card holders",
+                "bpl_required": false,
+                "age_limit": null
+            },
+            "states_active": [
+                "AP"
+            ],
+            "claim_types": [
+                "IPD",
+                "Day Care"
+            ],
+            "preauth_required": true,
+            "nhcx_profile": "NRCeSCoverage",
+            "hbp_packages": 2850,
+            "network": "nhcx"
+        },
+        {
+            "id": "AAROGYASRI_TG",
+            "full_name": "Aarogyasri Health Care Trust (Telangana)",
+            "coverage_amount": 500000,
+            "coverage_unit": "INR per family per year",
+            "eligibility": {
+                "type": "income_based",
+                "criteria": "White ration card holders",
+                "bpl_required": false,
+                "age_limit": null
+            },
+            "states_active": [
+                "TG"
+            ],
+            "claim_types": [
+                "IPD"
+            ],
+            "preauth_required": true,
+            "nhcx_profile": "NRCeSCoverage",
+            "hbp_packages": 1144,
+            "network": "nhcx"
+        },
+        {
+            "id": "KASP",
+            "full_name": "Karunya Arogya Suraksha Padhati",
+            "coverage_amount": 500000,
+            "coverage_unit": "INR per family per year",
+            "eligibility": {
+                "type": "income_based",
+                "criteria": "Based on SECC data + state additions",
+                "bpl_required": false,
+                "age_limit": null
+            },
+            "states_active": [
+                "KL"
+            ],
+            "claim_types": [
+                "IPD",
+                "Day Care"
+            ],
+            "preauth_required": true,
+            "nhcx_profile": "NRCeSCoverage",
+            "hbp_packages": 1600,
+            "network": "nhcx"
+        },
+        {
+            "id": "CHIRANJEEVI",
+            "full_name": "Mukhyamantri Chiranjeevi Swasthya Bima Yojana",
+            "coverage_amount": 1000000,
+            "coverage_unit": "INR per family per year",
+            "eligibility": {
+                "type": "universal",
+                "criteria": "All Rajasthan families (₹850 premium for non-NFSA)",
+                "bpl_required": false,
+                "age_limit": null
+            },
+            "states_active": [
+                "RJ"
+            ],
+            "claim_types": [
+                "IPD",
+                "Day Care",
+                "OPD (select)"
+            ],
+            "preauth_required": true,
+            "nhcx_profile": "NRCeSCoverage",
+            "hbp_packages": 1850,
+            "network": "nhcx"
+        },
+        {
+            "id": "SWASTHYA_SATHI",
+            "full_name": "Swasthya Sathi",
+            "coverage_amount": 500000,
+            "coverage_unit": "INR per family per year",
+            "eligibility": {
+                "type": "universal",
+                "criteria": "All West Bengal families",
+                "bpl_required": false,
+                "age_limit": null
+            },
+            "states_active": [
+                "WB"
+            ],
+            "claim_types": [
+                "IPD"
+            ],
+            "preauth_required": false,
+            "nhcx_profile": "NRCeSCoverage",
+            "hbp_packages": 1500,
+            "network": "openhcx"
+        },
+        {
+            "id": "MJPJAY",
+            "full_name": "Mahatma Jyotiba Phule Jan Arogya Yojana",
+            "coverage_amount": 300000,
+            "coverage_unit": "INR per family per year",
+            "eligibility": {
+                "type": "income_based",
+                "criteria": "Yellow / Orange ration card holders",
+                "bpl_required": false,
+                "age_limit": null
+            },
+            "states_active": [
+                "MH"
+            ],
+            "claim_types": [
+                "IPD",
+                "Day Care"
+            ],
+            "preauth_required": true,
+            "nhcx_profile": "NRCeSCoverage",
+            "hbp_packages": 996,
+            "network": "nhcx"
+        }
+    ],
+    "metadata": {
+        "total_schemes": 8,
+        "last_updated": "2024-11-01",
+        "source": "NHA PMJAY Portal, State Health Department websites"
+    }
+}
