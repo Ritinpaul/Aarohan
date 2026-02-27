@@ -166,6 +166,10 @@ class BundlePackager:
             if isinstance(first, dict):
                 coverage_list.append({"scheme_name": first.get("name", "")})
 
+        # Add a fallback Coverage resource if still empty (required by NRCeS)
+        if not coverage_list:
+            coverage_list.append({"scheme_name": "Self Pay"})
+
         for cov_data in coverage_list[:3]:
             cov_id = _uuid()
             cov = build_coverage(cov_data, patient_id, insurer_id, cov_id)
