@@ -35,14 +35,47 @@ HINDI_MEDICAL_MAP = {
     "hath pair mein soojan": "Pedal oedema",
 }
 
+COMMON_ICD10_MAP = {
+    "diabetes mellitus": "E11.9",
+    "type 2 diabetes": "E11.9",
+    "hypertension": "I10",
+    "high bp": "I10",
+    "fever": "R50.9",
+    "abdominal pain": "R10.4",
+    "chest pain": "R07.4",
+    "cough": "R05",
+    "dyspnoea": "R06",
+    "headache": "R51",
+    "weakness": "R53.1",
+    "vertigo/dizziness": "R42",
+    "burning micturition": "R30.0",
+    "anaemia": "D64.9",
+    "pedal oedema": "R60.0",
+    "upper respiratory infection": "J06.9",
+    "gallbladder stone": "K80.2",
+    "normal delivery": "O80"
+}
 
 def _normalize_hindi(text: str) -> str:
-    """Translate known Hindi medical phrases to English equivalents."""
+    """Translate known Hindi medical phrases to English equivalents and append to raw."""
+    if not text:
+        return ""
     lower = text.strip().lower()
+    translated = []
     for hindi, english in HINDI_MEDICAL_MAP.items():
         if hindi in lower:
-            lower = lower.replace(hindi, english)
-    return lower.strip().title()
+            translated.append(english)
+            lower = lower.replace(hindi, english.lower())
+    
+    final_text = lower.strip().title() if translated else text.strip()
+    return f"{text.strip()} ({final_text})" if translated else text.strip()
+
+def _get_icd10(text: str) -> Optional[str]:
+    lower = text.lower()
+    for phrase, code in COMMON_ICD10_MAP.items():
+        if phrase in lower:
+            return code
+    return None
 
 
 def _detect_delimiter(sample: str) -> str:
@@ -112,8 +145,8 @@ class CSVParser:
         "address": ["address", "patient_address", "village", "locality"],
         "phone": ["phone", "mobile", "contact", "mobile_no"],
         "date": ["date", "visit_date", "admission_date", "date of visit"],
-        "diagnosis": ["diagnosis", "chief_diagnosis", "final_diagnosis", "primary_diagnosis",
-                      "diagnosis_code", "icd_code"],
+        "diagnosis": ["diagnosis", "diagnosis_code", "icd_code"],
+        "diagnosis_text": ["diagnosis_text", "chief_diagnosis", "final_diagnosis", "primary_diagnosis", "description"],
         "drug_name": ["drug_prescribed", "drug_name", "medicine", "medication", "prescription"],
         "hospital_name": ["hospital_name", "facility", "hospital", "hf_name"],
         "insurance_scheme": ["insurance_scheme", "scheme", "scheme_name", "payer"],
@@ -179,8 +212,26 @@ class CSVParser:
             col = col_map.get(field)
             return row.get(col, "").strip() if col else ""
 
-        diag_raw = get("diagnosis")
+        diag_code = get("diagnosis")
+        diag_raw = get("diagnosis_text")
+        
+        # If neither is available, try fallback mapping if diagnosis is just text
+        if not diag_raw and diag_code and not re.match(r'^[A-Z][0-9]{2}(\.[0-9])?$', diag_code.upper()):
+            diag_raw = diag_code
+            diag_code = ""
+
         diag_normalised = _normalize_hindi(diag_raw) if diag_raw else ""
+        derived_code = _get_icd10(diag_normalised) or _get_icd10(diag_raw)
+        final_code = diag_code or derived_code or None
+
+        diagnoses = []
+        if diag_normalised or final_code:
+            diagnoses.append({
+                "text": diag_normalised or final_code, 
+                "raw": diag_raw, 
+                "code": final_code, 
+                "system": "http://hl7.org/fhir/sid/icd-10" if final_code else None
+            })
 
         return {
             "patient": {
@@ -196,8 +247,7 @@ class CSVParser:
                 "facility_name": get("hospital_name"),
                 "type": "AMB",
             },
-            "diagnoses": [{"text": diag_normalised, "raw": diag_raw, "code": None, "system": None}]
-            if diag_normalised else [],
+            "diagnoses": diagnoses,
             "medications": [{"text": get("drug_name"), "code": None, "system": None}]
             if get("drug_name") else [],
             "coverage": {

@@ -13,6 +13,7 @@ from app.core.database import init_db, close_db
 from app.core.seed_loader import load_seed_data
 from app.api.routes import health, assess, convert, map as map_routes
 from app.api.routes import transform
+from app.api.routes import heal
 
 settings = get_settings()
 
@@ -85,6 +86,11 @@ app.include_router(
     prefix=f"{settings.API_PREFIX}/transform",
     tags=["FHIR Transform"],
 )
+app.include_router(
+    heal.router,
+    prefix=f"{settings.API_PREFIX}/heal",
+    tags=["Phase 4 — Resilience Healer"],
+)
 
 
 @app.get("/", tags=["Root"])
@@ -101,5 +107,6 @@ async def root():
             "convert": f"{settings.API_PREFIX}/convert",
             "transform": f"{settings.API_PREFIX}/transform",
             "map": f"{settings.API_PREFIX}/map",
+            "heal": f"{settings.API_PREFIX}/heal",
         },
     }

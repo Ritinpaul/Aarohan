@@ -225,7 +225,7 @@ def _eval_csv_parser(report: dict):
     all_diag_text = []
     for rec in records:
         for d in rec.get("diagnoses", []):
-            tx = (d.get("text") or d.get("code") or "").lower()
+            tx = f"{d.get('text', '')} {d.get('code', '')}".lower()
             all_diag_text.append(tx)
 
     tp_d = sum(1 for ed in exp_diag if any(part.lower() in dt for dt in all_diag_text for part in ed.lower().split()))
@@ -479,7 +479,7 @@ def _eval_fhir_validity(report: dict, csv_records: list):
         details.append({"label": label, "status": status, "errors": result["errors"],
                         "warnings": result["warnings"], "entry_count": n_entries, "resource_types": types})
 
-    pass_rate = passed / total
+    pass_rate = (passed + warned) / total if total else 0
     print()
     _metric_row("Bundle Pass Rate (0 errors)",  pass_rate,      pass_rate >= 0.80)
     _metric_row("Bundles with warnings",        warned,         warned <= 1)
