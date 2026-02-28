@@ -102,6 +102,8 @@ async def run_pipeline(
             } if run.bundle else None,
             "validation": run.validation_report,
             "jws_digest": run.jws_digest,
+            "jws_token": run.jws_token if hasattr(run, 'jws_token') else None,
+            "bundle": run.bundle,
             "error": run.error,
         }
 

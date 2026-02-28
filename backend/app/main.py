@@ -4,7 +4,12 @@ FastAPI application entry point.
 """
 
 import logging
+import sys
+import asyncio
 from contextlib import asynccontextmanager
+
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
