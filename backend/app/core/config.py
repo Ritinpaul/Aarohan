@@ -3,6 +3,7 @@ Aarohan++ Configuration Module
 Centralized settings using Pydantic BaseSettings with .env support.
 """
 
+import os
 from pydantic_settings import BaseSettings
 from pydantic import Field
 from typing import Optional
@@ -20,8 +21,8 @@ class Settings(BaseSettings):
 
     # ─── Database ──────────────────────────────────────────────────
     DATABASE_URL: str = Field(
-        default="postgresql+asyncpg://aarohan:aarohan_dev@localhost:5432/aarohan_db",
-        description="PostgreSQL connection string",
+        default="sqlite+aiosqlite:///./aarohan.db",
+        description="Database connection string (sqlite for local dev, postgresql+asyncpg for production)",
     )
 
     # ─── Redis ─────────────────────────────────────────────────────
@@ -130,13 +131,13 @@ class Settings(BaseSettings):
     LOG_FORMAT: str = "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
 
     model_config = {
-        "env_file": ".env",
+        "env_file": os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), ".env"),
         "env_file_encoding": "utf-8",
         "case_sensitive": True,
+        "extra": "ignore",
     }
 
 
-@lru_cache()
 def get_settings() -> Settings:
     """Cached settings singleton."""
     return Settings()

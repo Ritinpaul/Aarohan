@@ -4,7 +4,12 @@ FastAPI application entry point.
 """
 
 import logging
+import sys
+import asyncio
 from contextlib import asynccontextmanager
+
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -14,6 +19,7 @@ from app.core.seed_loader import load_seed_data
 from app.api.routes import health, assess, convert, map as map_routes
 from app.api.routes import transform
 from app.api.routes import heal
+from app.api.routes import validate, payer, pipeline
 
 settings = get_settings()
 
@@ -91,6 +97,21 @@ app.include_router(
     prefix=f"{settings.API_PREFIX}/heal",
     tags=["Phase 4 — Resilience Healer"],
 )
+app.include_router(
+    validate.router,
+    prefix=f"{settings.API_PREFIX}/validate",
+    tags=["Phase 5 — FHIR Validation"],
+)
+app.include_router(
+    payer.router,
+    prefix=f"{settings.API_PREFIX}/payer",
+    tags=["Phase 5 — Payer Gateway"],
+)
+app.include_router(
+    pipeline.router,
+    prefix=f"{settings.API_PREFIX}/pipeline",
+    tags=["Phase 5 — End-to-End Pipeline"],
+)
 
 
 @app.get("/", tags=["Root"])
@@ -107,6 +128,9 @@ async def root():
             "convert": f"{settings.API_PREFIX}/convert",
             "transform": f"{settings.API_PREFIX}/transform",
             "map": f"{settings.API_PREFIX}/map",
-            "heal": f"{settings.API_PREFIX}/heal",
+            "heal":     f"{settings.API_PREFIX}/heal",
+            "validate": f"{settings.API_PREFIX}/validate",
+            "payer":    f"{settings.API_PREFIX}/payer",
+            "pipeline": f"{settings.API_PREFIX}/pipeline",
         },
     }
