@@ -104,10 +104,10 @@ export default function DashboardPage() {
     ]
 
     const kpis = [
-        { label: 'Documents Processed', value: stats?.total || 0, icon: FileText, color: 'var(--emerald-600)' },
-        { label: 'Avg Compliance Score', value: `${stats ? Math.round((stats.avg_score_lift || 0) + 50) : 72}%`, icon: TrendingUp, color: 'var(--teal-600)' },
-        { label: 'NRCeS Pass Rate', value: `${stats ? Math.round(stats.success_rate * 100) : 87}%`, icon: ShieldCheck, color: '#059669' },
-        { label: 'Avg Processing Time', value: `${stats ? Math.round(stats.avg_processing_ms) : 458}ms`, icon: Activity, color: '#0d9488' },
+        { label: 'Documents Processed', value: stats?.total || 0, icon: FileText, color: 'var(--lime-600)' },
+        { label: 'Avg Compliance Score', value: `${stats ? Math.round((stats.avg_score_lift || 0) + 50) : 72}%`, icon: TrendingUp, color: 'var(--green-600)' },
+        { label: 'NRCeS Pass Rate', value: `${stats ? Math.round(stats.success_rate * 100) : 87}%`, icon: ShieldCheck, color: 'var(--green-700)' },
+        { label: 'Avg Processing Time', value: `${stats ? Math.round(stats.avg_processing_ms) : 458}ms`, icon: Activity, color: 'var(--lime-700)' },
     ]
 
     if (loading) {
@@ -146,8 +146,9 @@ export default function DashboardPage() {
                                 <p className="text-kpi" style={{ color }}>{value}</p>
                             </div>
                             <div style={{
-                                width: '42px', height: '42px', borderRadius: 'var(--radius-lg)',
-                                background: `${color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                width: '44px', height: '44px', borderRadius: 'var(--radius-xl)',
+                                background: 'var(--lime-50)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                border: '1px solid var(--lime-100)',
                             }}>
                                 <Icon size={20} color={color} />
                             </div>
@@ -177,7 +178,9 @@ export default function DashboardPage() {
                             </thead>
                             <tbody>
                                 {runs.slice(-8).reverse().map((r, i) => (
-                                    <tr key={r.id} style={{ borderBottom: '1px solid var(--gray-50)' }}>
+                                    <tr key={r.id} style={{ borderBottom: '1px solid var(--gray-50)', transition: 'background 0.15s' }}
+                                        onMouseEnter={e => (e.currentTarget.style.background = 'var(--gray-25)')}
+                                        onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
                                         <td style={{ padding: '0.75rem 1rem', fontWeight: 500, color: 'var(--gray-800)' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                 <FileText size={14} color="var(--gray-400)" />
@@ -188,9 +191,9 @@ export default function DashboardPage() {
                                             <span className="badge badge-neutral">{(r.format || 'pdf').toUpperCase()}</span>
                                         </td>
                                         <td style={{ padding: '0.75rem 1rem', color: 'var(--gray-500)' }}>{r.score_before?.toFixed(1) || '—'}</td>
-                                        <td style={{ padding: '0.75rem 1rem', fontWeight: 600, color: 'var(--emerald-700)' }}>{r.score_after?.toFixed(1) || '—'}</td>
+                                        <td style={{ padding: '0.75rem 1rem', fontWeight: 600, color: 'var(--green-700)' }}>{r.score_after?.toFixed(1) || '—'}</td>
                                         <td style={{ padding: '0.75rem 1rem' }}>
-                                            <span style={{ color: 'var(--emerald-600)', fontWeight: 600 }}>+{r.score_delta?.toFixed(1) || '0'}</span>
+                                            <span style={{ color: 'var(--lime-600)', fontWeight: 600 }}>+{r.score_delta?.toFixed(1) || '0'}</span>
                                         </td>
                                         <td style={{ padding: '0.75rem 1rem' }}>
                                             <span className={r.success ? 'badge badge-success' : 'badge badge-danger'}>
@@ -217,9 +220,9 @@ export default function DashboardPage() {
                             <CartesianGrid strokeDasharray="3 3" stroke="var(--gray-100)" />
                             <XAxis dataKey="name" tick={{ fontSize: 11, fill: 'var(--gray-400)' }} />
                             <YAxis tick={{ fontSize: 11, fill: 'var(--gray-400)' }} domain={[0, 100]} />
-                            <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid var(--gray-100)', fontSize: '0.8125rem' }} />
+                            <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid var(--gray-100)', fontSize: '0.8125rem', boxShadow: 'var(--shadow-lg)' }} />
                             <Line type="monotone" dataKey="before" stroke="var(--gray-300)" strokeWidth={2} dot={{ r: 3 }} name="Before Heal" />
-                            <Line type="monotone" dataKey="after" stroke="var(--emerald-500)" strokeWidth={2.5} dot={{ r: 4, fill: 'var(--emerald-500)' }} name="After Heal" />
+                            <Line type="monotone" dataKey="after" stroke="var(--lime-500)" strokeWidth={2.5} dot={{ r: 4, fill: 'var(--lime-500)' }} name="After Heal" />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
@@ -232,8 +235,8 @@ export default function DashboardPage() {
                             <CartesianGrid strokeDasharray="3 3" stroke="var(--gray-100)" />
                             <XAxis type="number" tick={{ fontSize: 11, fill: 'var(--gray-400)' }} />
                             <YAxis type="category" dataKey="name" tick={{ fontSize: 11, fill: 'var(--gray-500)' }} width={130} />
-                            <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid var(--gray-100)', fontSize: '0.8125rem' }} />
-                            <Bar dataKey="count" fill="var(--emerald-500)" radius={[0, 4, 4, 0]} barSize={20} />
+                            <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid var(--gray-100)', fontSize: '0.8125rem', boxShadow: 'var(--shadow-lg)' }} />
+                            <Bar dataKey="count" fill="var(--lime-500)" radius={[0, 6, 6, 0]} barSize={20} />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
@@ -271,7 +274,7 @@ export default function DashboardPage() {
                                     <tr key={report.filename} style={{ borderBottom: '1px solid var(--gray-50)' }}>
                                         <td style={{ padding: '0.75rem 1rem', fontWeight: 500, color: 'var(--gray-800)' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                <FileText size={14} color="var(--blue-500)" />
+                                                <FileText size={14} color="var(--lime-500)" />
                                                 {report.filename}
                                             </div>
                                         </td>
@@ -287,7 +290,7 @@ export default function DashboardPage() {
                                                 {report.success_rate.toFixed(1)}%
                                             </span>
                                         </td>
-                                        <td style={{ padding: '0.75rem 1rem', color: 'var(--emerald-600)', fontWeight: 600 }}>
+                                        <td style={{ padding: '0.75rem 1rem', color: 'var(--lime-600)', fontWeight: 600 }}>
                                             +{report.avg_lift.toFixed(1)}
                                         </td>
                                         <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>

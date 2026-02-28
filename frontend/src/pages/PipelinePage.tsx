@@ -63,12 +63,12 @@ function TabBtn({ active, onClick, icon, label }: { active: boolean, onClick: ()
                 padding: '0.875rem 0',
                 fontSize: '0.8125rem',
                 fontWeight: active ? 600 : 500,
-                color: active ? 'var(--emerald-700)' : 'var(--gray-500)',
+                color: active ? 'var(--lime-700)' : 'var(--gray-500)',
                 background: 'transparent',
                 border: 'none',
-                borderBottom: active ? '2px solid var(--emerald-500)' : '2px solid transparent',
+                borderBottom: active ? '2px solid var(--lime-500)' : '2px solid transparent',
                 cursor: 'pointer',
-                transition: 'all 0.15s ease',
+                transition: 'all 0.2s ease',
             }}
         >
             {icon}

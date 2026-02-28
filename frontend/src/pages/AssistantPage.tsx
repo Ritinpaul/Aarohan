@@ -147,11 +147,11 @@ export default function AssistantPage() {
                 {/* Header */}
                 <div style={{ marginBottom: '1.25rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                        <div style={{ width: '40px', height: '40px', borderRadius: 'var(--radius-lg)', background: 'linear-gradient(135deg, var(--emerald-500), var(--teal-500))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: 'var(--radius-xl)', background: 'linear-gradient(135deg, var(--brand-start), var(--brand-end))', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(132,204,22,0.25)' }}>
                             <Sparkles size={20} color="white" />
                         </div>
                         <div>
-                            <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.5rem' }}>Clinical Intelligence Assistant</h1>
+                            <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: '1.5rem' }}>Clinical Intelligence Assistant</h1>
                             <p style={{ color: 'var(--gray-400)', fontSize: '0.8125rem' }}>Ask questions about your processed documents, FHIR compliance, or get clinical summaries</p>
                         </div>
                     </div>
@@ -163,7 +163,7 @@ export default function AssistantPage() {
                         <div key={i} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', animation: 'fadeInUp 0.3s ease-out' }}>
                             <div style={{
                                 width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0,
-                                background: msg.role === 'assistant' ? 'linear-gradient(135deg, var(--emerald-500), var(--teal-500))' : 'var(--gray-200)',
+                                background: msg.role === 'assistant' ? 'linear-gradient(135deg, var(--brand-start), var(--brand-end))' : 'var(--gray-200)',
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                             }}>
                                 {msg.role === 'assistant' ? <Bot size={16} color="white" /> : <User size={16} color="var(--gray-600)" />}
@@ -180,10 +180,10 @@ export default function AssistantPage() {
 
                                 {/* Summary Card */}
                                 {msg.type === 'summary' && msg.data && (
-                                    <div style={{ marginTop: '0.75rem', padding: '1rem', background: 'var(--emerald-50)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--emerald-100)' }}>
+                                    <div style={{ marginTop: '0.75rem', padding: '1rem', borderRadius: 'var(--radius-xl)', border: '1px solid var(--lime-200)', background: 'var(--lime-50)' }}>
                                         {Object.entries(msg.data as Record<string, any>).map(([k, v]) => (
-                                            <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.375rem 0', borderBottom: '1px solid var(--emerald-100)', fontSize: '0.8125rem' }}>
-                                                <span style={{ fontWeight: 600, color: 'var(--emerald-800)', textTransform: 'capitalize' }}>{k.replace(/_/g, ' ')}</span>
+                                            <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.375rem 0', borderBottom: '1px solid var(--lime-100)', fontSize: '0.8125rem' }}>
+                                                <span style={{ fontWeight: 600, color: 'var(--green-800)', textTransform: 'capitalize' }}>{k.replace(/_/g, ' ')}</span>
                                                 <span style={{ color: 'var(--gray-600)', textAlign: 'right', maxWidth: '60%' }}>{Array.isArray(v) ? v.join(', ') : String(v)}</span>
                                             </div>
                                         ))}
@@ -233,7 +233,7 @@ export default function AssistantPage() {
                                             <tbody>
                                                 {(msg.data as any[]).map((d, j) => (
                                                     <tr key={j} style={{ borderBottom: '1px solid var(--gray-50)' }}>
-                                                        <td style={{ padding: '0.5rem', fontFamily: 'var(--font-mono)', fontWeight: 600, color: 'var(--emerald-700)' }}>{d.code}</td>
+                                                        <td style={{ padding: '0.5rem', fontFamily: 'var(--font-mono)', fontWeight: 600, color: 'var(--lime-700)' }}>{d.code}</td>
                                                         <td style={{ padding: '0.5rem' }}>{d.description}</td>
                                                         <td style={{ padding: '0.5rem' }}>
                                                             <span className="badge badge-success">{d.confidence}</span>
@@ -250,12 +250,12 @@ export default function AssistantPage() {
 
                     {isTyping && (
                         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--emerald-500), var(--teal-500))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--brand-start), var(--brand-end))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <Bot size={16} color="white" />
                             </div>
-                            <div style={{ display: 'flex', gap: '4px', padding: '0.75rem 1rem', background: 'var(--gray-50)', borderRadius: '12px' }}>
+                            <div style={{ display: 'flex', gap: '4px', padding: '0.75rem 1rem', background: 'var(--gray-50)', borderRadius: 'var(--radius-full)' }}>
                                 {[0, 1, 2].map(i => (
-                                    <div key={i} style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--gray-300)', animation: `pulse-glow 1.4s infinite ${i * 0.2}s` }} />
+                                    <div key={i} style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--lime-400)', animation: `pulse-glow 1.4s infinite ${i * 0.2}s` }} />
                                 ))}
                             </div>
                         </div>
@@ -283,12 +283,15 @@ export default function AssistantPage() {
                         onKeyDown={e => e.key === 'Enter' && sendMessage()}
                         placeholder="Ask about your documents, compliance, or FHIR mappings..."
                         style={{
-                            flex: 1, padding: '0.875rem 1.25rem', borderRadius: 'var(--radius-xl)',
+                            flex: 1, padding: '0.875rem 1.25rem', borderRadius: 'var(--radius-full)',
                             border: '1px solid var(--gray-200)', fontSize: '0.875rem',
                             outline: 'none', background: 'white', fontFamily: 'var(--font-sans)',
+                            transition: 'border-color 0.2s',
                         }}
+                        onFocus={e => e.currentTarget.style.borderColor = 'var(--lime-400)'}
+                        onBlur={e => e.currentTarget.style.borderColor = 'var(--gray-200)'}
                     />
-                    <button className="btn btn-primary" onClick={() => sendMessage()} style={{ borderRadius: 'var(--radius-xl)' }}>
+                    <button className="btn btn-primary" onClick={() => sendMessage()} style={{ borderRadius: 'var(--radius-full)' }}>
                         <Send size={18} />
                     </button>
                 </div>
@@ -300,9 +303,9 @@ export default function AssistantPage() {
                     <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9375rem', marginBottom: '1rem' }}>Processing History</h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                         {recentFiles.map((f, i) => (
-                            <div key={i} style={{ padding: '0.75rem', background: 'var(--gray-50)', borderRadius: 'var(--radius-lg)', cursor: 'pointer', transition: 'all 0.15s ease' }}
-                                onMouseEnter={e => (e.currentTarget.style.background = 'var(--emerald-50)')}
-                                onMouseLeave={e => (e.currentTarget.style.background = 'var(--gray-50)')}
+                            <div key={i} style={{ padding: '0.75rem', background: 'var(--gray-50)', borderRadius: 'var(--radius-xl)', cursor: 'pointer', transition: 'all 0.2s ease' }}
+                                onMouseEnter={e => { e.currentTarget.style.background = 'var(--lime-50)'; e.currentTarget.style.transform = 'translateX(4px)' }}
+                                onMouseLeave={e => { e.currentTarget.style.background = 'var(--gray-50)'; e.currentTarget.style.transform = 'translateX(0)' }}
                                 onClick={() => sendMessage(`Summarize ${f.name}`)}
                             >
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
@@ -313,7 +316,7 @@ export default function AssistantPage() {
                                     <span style={{ fontSize: '0.6875rem', color: 'var(--gray-400)' }}>
                                         <Clock size={10} style={{ verticalAlign: 'middle', marginRight: '2px' }} /> {f.date}
                                     </span>
-                                    <span style={{ fontSize: '0.75rem', fontWeight: 600, color: f.score >= 70 ? 'var(--emerald-600)' : f.score >= 50 ? 'var(--warning)' : 'var(--danger)' }}>
+                                    <span style={{ fontSize: '0.75rem', fontWeight: 600, color: f.score >= 70 ? 'var(--lime-600)' : f.score >= 50 ? 'var(--warning)' : 'var(--danger)' }}>
                                         {f.score}%
                                     </span>
                                 </div>
