@@ -98,20 +98,6 @@ export default function Navbar() {
                         <span className="status-dot status-dot-success" style={{ marginRight: '4px' }} />
                         System Online
                     </span>
-                    <div style={{
-                        width: '34px',
-                        height: '34px',
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg, var(--emerald-400), var(--teal-400))',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        fontWeight: 700,
-                        fontSize: '0.75rem',
-                    }}>
-                        RP
-                    </div>
                 </div>
             </div>
         </header>

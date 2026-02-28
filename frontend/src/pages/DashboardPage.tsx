@@ -10,6 +10,16 @@ interface AuditEntry {
     score_delta: number; total_ms: number; error: string | null;
 }
 
+interface EvalReport {
+    filename: string;
+    timestamp: string;
+    total_documents: number;
+    success_rate: number;
+    avg_score_before: number;
+    avg_score_after: number;
+    avg_lift: number;
+}
+
 interface Stats {
     total: number; success: number; failed: number; success_rate: number;
     avg_score_lift: number; avg_processing_ms: number; formats: Record<string, number>;
@@ -46,6 +56,7 @@ export default function DashboardPage() {
     const navigate = useNavigate()
     const [runs, setRuns] = useState<AuditEntry[]>([])
     const [stats, setStats] = useState<Stats | null>(null)
+    const [reports, setReports] = useState<EvalReport[]>([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -67,7 +78,15 @@ export default function DashboardPage() {
                 setStats(demo.stats)
             })
             .finally(() => setLoading(false))
+
+        axios.get('/api/v1/pipeline/eval_reports')
+            .then(res => setReports(res.data))
+            .catch(err => console.error("Failed to load reports:", err))
     }, [])
+
+    const handleDownloadReport = (filename: string) => {
+        navigate(`/reports/${filename}`)
+    }
 
     // Chart data
     const trendData = runs.slice().reverse().map((r, i) => ({
@@ -218,6 +237,74 @@ export default function DashboardPage() {
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
+            </div>
+
+            {/* System Reports Table */}
+            <div className="card animate-fade-in-up delay-500" style={{ marginTop: '2rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.1rem' }}>Available System Reports</h3>
+                    <button className="btn btn-ghost" style={{ fontSize: '0.8125rem' }} onClick={() => navigate('/reports')}>
+                        View All <ArrowRight size={14} />
+                    </button>
+                </div>
+
+                {reports.length === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--gray-400)' }}>
+                        <FileText size={32} style={{ margin: '0 auto 1rem', opacity: 0.5 }} />
+                        <p>No reports generated yet.</p>
+                    </div>
+                ) : (
+                    <div style={{ overflowX: 'auto' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8125rem' }}>
+                            <thead>
+                                <tr style={{ borderBottom: '1px solid var(--gray-100)', textAlign: 'left', color: 'var(--gray-400)', textTransform: 'uppercase', letterSpacing: '0.05em', fontSize: '0.6875rem' }}>
+                                    <th style={{ padding: '0.75rem 1rem' }}>Report Name</th>
+                                    <th style={{ padding: '0.75rem 1rem' }}>Date</th>
+                                    <th style={{ padding: '0.75rem 1rem' }}>Documents</th>
+                                    <th style={{ padding: '0.75rem 1rem' }}>Success Rate</th>
+                                    <th style={{ padding: '0.75rem 1rem' }}>Avg Lift</th>
+                                    <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {reports.slice(0, 5).map((report) => (
+                                    <tr key={report.filename} style={{ borderBottom: '1px solid var(--gray-50)' }}>
+                                        <td style={{ padding: '0.75rem 1rem', fontWeight: 500, color: 'var(--gray-800)' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                <FileText size={14} color="var(--blue-500)" />
+                                                {report.filename}
+                                            </div>
+                                        </td>
+                                        <td style={{ padding: '0.75rem 1rem', color: 'var(--gray-500)' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                                                <Clock size={12} />
+                                                {new Date(report.timestamp).toLocaleString()}
+                                            </div>
+                                        </td>
+                                        <td style={{ padding: '0.75rem 1rem', color: 'var(--gray-600)' }}>{report.total_documents} files</td>
+                                        <td style={{ padding: '0.75rem 1rem' }}>
+                                            <span className={report.success_rate >= 90 ? 'badge badge-success' : 'badge badge-warning'}>
+                                                {report.success_rate.toFixed(1)}%
+                                            </span>
+                                        </td>
+                                        <td style={{ padding: '0.75rem 1rem', color: 'var(--emerald-600)', fontWeight: 600 }}>
+                                            +{report.avg_lift.toFixed(1)}
+                                        </td>
+                                        <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
+                                            <button
+                                                className="btn btn-ghost"
+                                                onClick={() => handleDownloadReport(report.filename)}
+                                                style={{ padding: '0.25rem 0.75rem', fontSize: '0.75rem' }}
+                                            >
+                                                Download
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
         </div>
     )

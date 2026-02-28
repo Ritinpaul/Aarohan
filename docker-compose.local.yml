@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: aarohan-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: aarohan
+      POSTGRES_PASSWORD: aarohan_dev
+      POSTGRES_DB: aarohan_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/data/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  redis:
+    image: redis:7-alpine
+    container_name: aarohan-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+
+  fhir-server:
+    image: hapiproject/hapi:latest
+    container_name: aarohan-fhir
+    ports:
+      - "8080:8080"
+    environment:
+      - hapi.fhir.default_encoding=json
+      - hapi.fhir.fhir_version=R4
+      - hapi.fhir.allow_external_references=true
+      - hapi.fhir.allow_multiple_delete=true
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/hapi_fhir
+      - spring.datasource.username=aarohan
+      - spring.datasource.password=aarohan_dev
+      - spring.datasource.driver-class-name=org.postgresql.Driver
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  redis_data:

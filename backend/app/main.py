@@ -19,6 +19,7 @@ from app.core.seed_loader import load_seed_data
 from app.api.routes import health, assess, convert, map as map_routes
 from app.api.routes import transform
 from app.api.routes import heal
+from app.api.routes import pipeline
 from app.api.routes import validate, payer, pipeline
 
 settings = get_settings()
@@ -96,6 +97,11 @@ app.include_router(
     heal.router,
     prefix=f"{settings.API_PREFIX}/heal",
     tags=["Phase 4 — Resilience Healer"],
+)
+app.include_router(
+    pipeline.router,
+    prefix=f"{settings.API_PREFIX}/pipeline",
+    tags=["Pipeline"],
 )
 app.include_router(
     validate.router,

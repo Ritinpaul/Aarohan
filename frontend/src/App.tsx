@@ -5,6 +5,7 @@ import DashboardPage from './pages/DashboardPage'
 import PipelinePage from './pages/PipelinePage'
 import AnalyticsPage from './pages/AnalyticsPage'
 import ReportsPage from './pages/ReportsPage'
+import ReportViewPage from './pages/ReportViewPage'
 import AssistantPage from './pages/AssistantPage'
 
 export default function App() {
@@ -22,6 +23,9 @@ export default function App() {
                     <Route path="/reports" element={<ReportsPage />} />
                     <Route path="/assistant" element={<AssistantPage />} />
                 </Route>
+
+                {/* Full-screen Report Viewer — standalone route without the standard Layout navbar */}
+                <Route path="/reports/:filename" element={<ReportViewPage />} />
             </Routes>
         </BrowserRouter>
     )

@@ -30,7 +30,7 @@ const tierData = [
 ]
 
 export default function AnalyticsPage() {
-    const [stats, setStats] = useState<any>(null)
+    const [, setStats] = useState<any>(null)
 
     useEffect(() => {
         axios.get('/api/v1/pipeline/audit?n=50').then(res => {
