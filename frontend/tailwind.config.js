@@ -8,18 +8,26 @@ export default {
     extend: {
       colors: {
         nature: {
-          50: '#f2fdf5',
-          100: '#e1fbe8',
-          200: '#c4f6d4',
-          300: '#95ebb3',
-          400: '#5dd88c',
-          500: '#35be6b',
-          600: '#239c51',
-          700: '#1e7b42',
-          800: '#1b6136',
-          900: '#18502e',
-          950: '#0c2d19',
+          50: '#f7fee7',
+          100: '#ecfccb',
+          200: '#d9f99d',
+          300: '#bef264',
+          400: '#a3e635',
+          500: '#84cc16',
+          600: '#65a30d',
+          700: '#4d7c0f',
+          800: '#3f6212',
+          900: '#365314',
+          950: '#1a2e05',
         }
+      },
+      fontFamily: {
+        serif: ['DM Serif Display', 'Georgia', 'serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+      },
+      borderRadius: {
+        '4xl': '2rem',
       }
     },
   },

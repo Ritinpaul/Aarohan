@@ -46,16 +46,18 @@ export default function UploadTab({ onUploadSuccess }: UploadTabProps) {
     return (
         <div className="max-w-3xl mx-auto py-8">
             <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-gray-900">Ingest Legacy Clinical Data</h2>
+                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem' }} className="text-gray-900">Ingest Legacy Clinical Data</h2>
                 <p className="text-gray-500 mt-2">Upload unstructured or legacy formats. The engine will automatically detect context and extract structured FHIR data.</p>
             </div>
 
             <div
-                className="border-2 border-dashed border-gray-200 rounded-3xl p-12 text-center hover:border-nature-500 hover:bg-nature-50/50 transition-colors bg-white/50 cursor-pointer"
+                className="border-2 border-dashed border-gray-200 rounded-3xl p-12 text-center hover:border-lime-400 hover:bg-lime-50/50 transition-all duration-300 bg-white cursor-pointer"
                 onClick={() => fileInputRef.current?.click()}
+                style={{ borderRadius: '24px' }}
             >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-nature-100 text-nature-600 mb-4">
-                    <UploadCloud className="w-8 h-8" />
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
+                    style={{ background: 'var(--lime-100)' }}>
+                    <UploadCloud className="w-8 h-8" style={{ color: 'var(--lime-600)' }} />
                 </div>
                 <h3 className="text-lg font-medium text-gray-900">Drop your file here, or browse</h3>
                 <p className="text-sm text-gray-500 mt-2">Supports PDF (Diagnostic/Discharge), CSV, HL7v2, XML</p>
@@ -70,10 +72,10 @@ export default function UploadTab({ onUploadSuccess }: UploadTabProps) {
             </div>
 
             {file && (
-                <div className="mt-6 flex items-center justify-between p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                <div className="mt-6 flex items-center justify-between p-4 bg-white rounded-2xl shadow-sm border border-gray-100">
                     <div className="flex items-center space-x-4">
-                        <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
-                            <FileType className="w-6 h-6" />
+                        <div className="p-2 rounded-lg" style={{ background: 'var(--lime-50)' }}>
+                            <FileType className="w-6 h-6" style={{ color: 'var(--lime-600)' }} />
                         </div>
                         <div>
                             <p className="font-medium text-gray-900">{file.name}</p>
@@ -83,7 +85,8 @@ export default function UploadTab({ onUploadSuccess }: UploadTabProps) {
                     <button
                         onClick={handleUpload}
                         disabled={isUploading}
-                        className="px-6 py-2.5 bg-nature-600 hover:bg-nature-700 text-white font-medium rounded-xl transition-colors disabled:opacity-50 flex items-center shadow-sm"
+                        className="px-6 py-2.5 text-white font-medium rounded-full transition-all duration-300 disabled:opacity-50 flex items-center shadow-sm"
+                        style={{ background: 'linear-gradient(135deg, var(--brand-start), var(--brand-end))' }}
                     >
                         {isUploading ? (
                             <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Processing...</>
@@ -102,15 +105,15 @@ export default function UploadTab({ onUploadSuccess }: UploadTabProps) {
 
             {/* Feature Highlights */}
             <div className="grid grid-cols-2 gap-6 mt-12">
-                <div className="p-5 bg-white/60 rounded-2xl border border-gray-100">
-                    <Building2 className="w-6 h-6 text-teal-600 mb-3" />
+                <div style={{ background: 'linear-gradient(160deg, #e8fccf, #d4f7a8)', borderRadius: '20px', padding: '1.5rem', border: '1px solid rgba(132,204,22,0.15)' }}>
+                    <Building2 className="w-6 h-6 mb-3" style={{ color: 'var(--lime-700)' }} />
                     <h4 className="font-semibold text-gray-900">Auto Context Detection</h4>
-                    <p className="text-sm text-gray-500 mt-1">Automatically detects hospital tier, geographic state, and applicable health schemes (PMJAY, CGHS).</p>
+                    <p className="text-sm mt-1" style={{ color: 'var(--green-800)', opacity: 0.8 }}>Automatically detects hospital tier, geographic state, and applicable health schemes (PMJAY, CGHS).</p>
                 </div>
-                <div className="p-5 bg-white/60 rounded-2xl border border-gray-100">
-                    <Activity className="w-6 h-6 text-indigo-600 mb-3" />
+                <div style={{ background: 'linear-gradient(160deg, #e8fccf, #d4f7a8)', borderRadius: '20px', padding: '1.5rem', border: '1px solid rgba(132,204,22,0.15)' }}>
+                    <Activity className="w-6 h-6 mb-3" style={{ color: 'var(--lime-700)' }} />
                     <h4 className="font-semibold text-gray-900">Multimodal Parsing</h4>
-                    <p className="text-sm text-gray-500 mt-1">Extracts from unstructured clinical narratives, OCRs PDFs, and maps legacy codes natively.</p>
+                    <p className="text-sm mt-1" style={{ color: 'var(--green-800)', opacity: 0.8 }}>Extracts from unstructured clinical narratives, OCRs PDFs, and maps legacy codes natively.</p>
                 </div>
             </div>
         </div>

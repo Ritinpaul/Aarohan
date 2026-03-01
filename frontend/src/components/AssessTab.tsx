@@ -21,7 +21,7 @@ export default function AssessTab({ pipelineData, onNext }: AssessTabProps) {
 
     // Determine colors based on score
     const getScoreColor = (score: number) => {
-        if (score >= 90) return 'text-nature-600'
+        if (score >= 90) return 'text-lime-600'
         if (score >= 70) return 'text-amber-500'
         return 'text-red-500'
     }
@@ -40,7 +40,8 @@ export default function AssessTab({ pipelineData, onNext }: AssessTabProps) {
                     </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-nature-500 to-teal-600 p-6 rounded-2xl shadow-md border border-nature-400 block relative overflow-hidden text-white">
+                <div className="p-6 rounded-2xl shadow-md border block relative overflow-hidden text-white"
+                    style={{ background: 'linear-gradient(135deg, var(--brand-start), var(--brand-end))', borderColor: 'var(--lime-400)' }}>
                     <p className="text-sm font-medium text-white/80 mb-1">Post-Heal Score</p>
                     <div className="flex items-baseline space-x-2">
                         <span className="text-5xl font-extrabold">{scoreAfter}</span>
@@ -56,11 +57,11 @@ export default function AssessTab({ pipelineData, onNext }: AssessTabProps) {
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 block">
                     <p className="text-sm font-medium text-gray-500 mb-1">NRCeS Validation Gate</p>
                     {validation.valid ? (
-                        <div className="flex items-center text-nature-600 mt-2">
+                        <div className="flex items-center mt-2" style={{ color: 'var(--lime-600)' }}>
                             <CheckCircle className="w-8 h-8 mr-3" />
                             <div>
                                 <p className="font-bold text-lg leading-tight">PASS</p>
-                                <p className="text-xs text-nature-600/80">{validation.error_count} Errors • {validation.warning_count} Warnings</p>
+                                <p className="text-xs" style={{ color: 'var(--lime-600)', opacity: 0.8 }}>{validation.error_count} Errors • {validation.warning_count} Warnings</p>
                             </div>
                         </div>
                     ) : (
@@ -83,7 +84,8 @@ export default function AssessTab({ pipelineData, onNext }: AssessTabProps) {
                     <div className="space-y-4">
                         {(pipelineData.stages || []).map((stage: any, i: number) => (
                             <div key={i} className="flex items-center">
-                                <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${stage.success ? 'bg-nature-100 text-nature-600' : 'bg-red-100 text-red-600'}`}>
+                                <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${stage.success ? 'text-lime-600' : 'bg-red-100 text-red-600'}`}
+                                    style={stage.success ? { background: 'var(--lime-100)' } : {}}>
                                     {stage.success ? <CheckCircle className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
                                 </div>
                                 <div className="ml-4 flex-1">
@@ -99,7 +101,8 @@ export default function AssessTab({ pipelineData, onNext }: AssessTabProps) {
                     <div className="mt-8 pt-6 border-t border-gray-100">
                         <button
                             onClick={onNext}
-                            className="w-full flex items-center justify-center px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-xl transition-colors"
+                            className="w-full flex items-center justify-center px-4 py-2.5 text-white font-medium rounded-full transition-all duration-300"
+                            style={{ background: 'var(--gray-900)' }}
                         >
                             Continue to Network Sim <ArrowRight className="w-4 h-4 ml-2" />
                         </button>
@@ -111,11 +114,11 @@ export default function AssessTab({ pipelineData, onNext }: AssessTabProps) {
                     <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
                         <h3 className="text-lg font-semibold text-gray-900 mb-4">Detected Context</h3>
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="p-3 bg-gray-50 rounded-lg">
+                            <div className="p-3 rounded-lg" style={{ background: 'var(--lime-50)' }}>
                                 <p className="text-xs text-gray-500">Format Detected</p>
                                 <p className="font-medium text-gray-900 uppercase">{pipelineData.format_detected}</p>
                             </div>
-                            <div className="p-3 bg-gray-50 rounded-lg">
+                            <div className="p-3 rounded-lg" style={{ background: 'var(--lime-50)' }}>
                                 <p className="text-xs text-gray-500">Target Profile</p>
                                 <p className="font-medium text-gray-900">{pipelineData.profile}</p>
                             </div>
@@ -143,7 +146,8 @@ export default function AssessTab({ pipelineData, onNext }: AssessTabProps) {
                                 ))}
                             </div>
                         ) : (
-                            <div className="p-6 text-center border-2 border-dashed border-nature-200 rounded-xl bg-nature-50 text-nature-700 font-medium">
+                            <div className="p-6 text-center border-2 border-dashed rounded-xl font-medium"
+                                style={{ borderColor: 'var(--lime-200)', background: 'var(--lime-50)', color: 'var(--lime-700)' }}>
                                 Zero issues found! 100% compliant.
                             </div>
                         )}

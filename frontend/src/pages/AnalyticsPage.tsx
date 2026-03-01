@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, L
 import { Download, FileText, TrendingUp, AlertTriangle, Sparkles } from 'lucide-react'
 import axios from 'axios'
 
-const COLORS = ['var(--emerald-500)', 'var(--teal-500)', '#3b82f6', '#f59e0b', '#ef4444']
+const COLORS = ['var(--lime-500)', 'var(--green-500)', '#3b82f6', '#f59e0b', '#ef4444']
 
 const issueData = [
     { name: 'Missing ABHA Identifier', count: 18 },
@@ -56,10 +56,10 @@ export default function AnalyticsPage() {
     ]
 
     const kpis = [
-        { label: 'Avg Compliance Score', value: '72.4%', sub: '+4.2% this week', icon: TrendingUp, color: 'var(--emerald-600)' },
-        { label: 'Documents This Week', value: '34', sub: '↑ 12% vs last week', icon: FileText, color: 'var(--teal-600)' },
+        { label: 'Avg Compliance Score', value: '72.4%', sub: '+4.2% this week', icon: TrendingUp, color: 'var(--lime-600)' },
+        { label: 'Documents This Week', value: '34', sub: '↑ 12% vs last week', icon: FileText, color: 'var(--green-600)' },
         { label: 'Most Common Issue', value: 'Missing ABHA', sub: '18 occurrences', icon: AlertTriangle, color: 'var(--warning)' },
-        { label: 'Auto-Heal Success', value: '89.2%', sub: '112 of 127 fixed', icon: Sparkles, color: '#059669' },
+        { label: 'Auto-Heal Success', value: '89.2%', sub: '112 of 127 fixed', icon: Sparkles, color: 'var(--green-700)' },
     ]
 
     return (
@@ -80,7 +80,7 @@ export default function AnalyticsPage() {
                                 <p className="text-kpi" style={{ color, marginBottom: '0.375rem' }}>{value}</p>
                                 <p style={{ fontSize: '0.75rem', color: 'var(--gray-400)' }}>{sub}</p>
                             </div>
-                            <div style={{ width: '42px', height: '42px', borderRadius: 'var(--radius-lg)', background: `${color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <div style={{ width: '44px', height: '44px', borderRadius: 'var(--radius-xl)', background: 'var(--lime-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--lime-100)' }}>
                                 <Icon size={20} color={color} />
                             </div>
                         </div>
@@ -98,9 +98,9 @@ export default function AnalyticsPage() {
                             <CartesianGrid strokeDasharray="3 3" stroke="var(--gray-100)" />
                             <XAxis dataKey="day" tick={{ fontSize: 10, fill: 'var(--gray-400)' }} />
                             <YAxis tick={{ fontSize: 10, fill: 'var(--gray-400)' }} domain={[0, 100]} />
-                            <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid var(--gray-100)', fontSize: '0.8125rem' }} />
+                            <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid var(--gray-100)', fontSize: '0.8125rem', boxShadow: 'var(--shadow-lg)' }} />
                             <Line type="monotone" dataKey="before" stroke="var(--gray-300)" strokeWidth={2} name="Pre-Heal" dot={false} />
-                            <Line type="monotone" dataKey="after" stroke="var(--emerald-500)" strokeWidth={2.5} name="Post-Heal" dot={false} />
+                            <Line type="monotone" dataKey="after" stroke="var(--lime-500)" strokeWidth={2.5} name="Post-Heal" dot={false} />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
@@ -112,7 +112,7 @@ export default function AnalyticsPage() {
                         {['Compliance Summary', 'NRCeS Validation Report', 'Monthly Processing Report'].map(r => (
                             <button key={r} className="btn btn-ghost" style={{
                                 justifyContent: 'space-between', padding: '0.875rem 1rem',
-                                border: '1px solid var(--gray-100)', borderRadius: 'var(--radius-lg)',
+                                border: '1px solid var(--gray-100)', borderRadius: 'var(--radius-xl)',
                                 fontSize: '0.8125rem', textAlign: 'left',
                             }}>
                                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -141,8 +141,8 @@ export default function AnalyticsPage() {
                         <BarChart data={scoreDistribution}>
                             <XAxis dataKey="range" tick={{ fontSize: 10, fill: 'var(--gray-400)' }} />
                             <YAxis tick={{ fontSize: 10, fill: 'var(--gray-400)' }} />
-                            <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid var(--gray-100)', fontSize: '0.8125rem' }} />
-                            <Bar dataKey="count" fill="var(--emerald-500)" radius={[4, 4, 0, 0]} />
+                            <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid var(--gray-100)', fontSize: '0.8125rem', boxShadow: 'var(--shadow-lg)' }} />
+                            <Bar dataKey="count" fill="var(--lime-500)" radius={[6, 6, 0, 0]} />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
@@ -155,7 +155,7 @@ export default function AnalyticsPage() {
                             <Pie data={docTypes} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={3} dataKey="value">
                                 {docTypes.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                             </Pie>
-                            <Tooltip contentStyle={{ borderRadius: '8px', fontSize: '0.8125rem' }} />
+                            <Tooltip contentStyle={{ borderRadius: '12px', fontSize: '0.8125rem' }} />
                             <Legend iconSize={10} wrapperStyle={{ fontSize: '0.75rem' }} />
                         </PieChart>
                     </ResponsiveContainer>
@@ -169,7 +169,7 @@ export default function AnalyticsPage() {
                             <Pie data={tierData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={3} dataKey="value">
                                 {tierData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                             </Pie>
-                            <Tooltip contentStyle={{ borderRadius: '8px', fontSize: '0.8125rem' }} />
+                            <Tooltip contentStyle={{ borderRadius: '12px', fontSize: '0.8125rem' }} />
                             <Legend iconSize={10} wrapperStyle={{ fontSize: '0.75rem' }} />
                         </PieChart>
                     </ResponsiveContainer>
@@ -184,8 +184,8 @@ export default function AnalyticsPage() {
                         <CartesianGrid strokeDasharray="3 3" stroke="var(--gray-100)" />
                         <XAxis type="number" tick={{ fontSize: 10, fill: 'var(--gray-400)' }} />
                         <YAxis type="category" dataKey="name" tick={{ fontSize: 11, fill: 'var(--gray-500)' }} width={180} />
-                        <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid var(--gray-100)', fontSize: '0.8125rem' }} />
-                        <Bar dataKey="count" fill="var(--emerald-500)" radius={[0, 4, 4, 0]} barSize={18} />
+                        <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid var(--gray-100)', fontSize: '0.8125rem', boxShadow: 'var(--shadow-lg)' }} />
+                        <Bar dataKey="count" fill="var(--lime-500)" radius={[0, 6, 6, 0]} barSize={18} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>

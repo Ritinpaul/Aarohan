@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { ShieldCheck, LayoutDashboard, Workflow, BarChart3, FileText, MessageSquare } from 'lucide-react'
+import { ShieldCheck, LayoutDashboard, Workflow, BarChart3, FileText, MessageSquare, ArrowRight } from 'lucide-react'
 
 const navItems = [
     { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -17,11 +17,10 @@ export default function Navbar() {
             position: 'sticky',
             top: 0,
             zIndex: 50,
-            background: 'rgba(255,255,255,0.85)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
+            background: 'rgba(255,255,255,0.92)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
             borderBottom: '1px solid var(--gray-100)',
-            boxShadow: 'var(--shadow-sm)',
         }}>
             <div style={{
                 maxWidth: '1400px',
@@ -29,8 +28,8 @@ export default function Navbar() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '0 1.5rem',
-                height: '64px',
+                padding: '0 2rem',
+                height: '68px',
             }}>
                 {/* Logo */}
                 <button
@@ -38,7 +37,7 @@ export default function Navbar() {
                     style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.5rem',
+                        gap: '0.625rem',
                         background: 'none',
                         border: 'none',
                         cursor: 'pointer',
@@ -46,21 +45,23 @@ export default function Navbar() {
                     }}
                 >
                     <div style={{
-                        width: '36px',
-                        height: '36px',
-                        borderRadius: 'var(--radius-lg)',
-                        background: 'linear-gradient(135deg, var(--emerald-600), var(--teal-500))',
+                        width: '38px',
+                        height: '38px',
+                        borderRadius: 'var(--radius-xl)',
+                        background: 'linear-gradient(135deg, var(--brand-start), var(--brand-end))',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        boxShadow: '0 2px 8px rgba(132, 204, 22, 0.25)',
                     }}>
                         <ShieldCheck size={20} color="white" />
                     </div>
                     <span style={{
-                        fontFamily: 'var(--font-display)',
-                        fontWeight: 700,
-                        fontSize: '1.25rem',
+                        fontFamily: 'var(--font-serif)',
+                        fontWeight: 400,
+                        fontSize: '1.375rem',
                         color: 'var(--gray-900)',
+                        letterSpacing: '-0.01em',
                     }}>
                         Aarohan
                     </span>
@@ -76,14 +77,14 @@ export default function Navbar() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '0.375rem',
-                                padding: '0.5rem 0.875rem',
+                                padding: '0.5rem 1rem',
                                 fontSize: '0.8125rem',
                                 fontWeight: isActive ? 600 : 500,
-                                color: isActive ? 'var(--emerald-700)' : 'var(--gray-500)',
-                                background: isActive ? 'var(--emerald-50)' : 'transparent',
-                                borderRadius: 'var(--radius-lg)',
+                                color: isActive ? 'var(--lime-700)' : 'var(--gray-500)',
+                                background: isActive ? 'var(--lime-50)' : 'transparent',
+                                borderRadius: 'var(--radius-full)',
                                 textDecoration: 'none',
-                                transition: 'all 0.15s ease',
+                                transition: 'all 0.2s ease',
                             })}
                         >
                             <Icon size={16} />
@@ -98,6 +99,9 @@ export default function Navbar() {
                         <span className="status-dot status-dot-success" style={{ marginRight: '4px' }} />
                         System Online
                     </span>
+                    <button className="btn btn-primary btn-sm" onClick={() => navigate('/pipeline')}>
+                        Get Started <ArrowRight size={14} />
+                    </button>
                 </div>
             </div>
         </header>

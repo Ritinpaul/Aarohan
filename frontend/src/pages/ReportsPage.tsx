@@ -71,10 +71,12 @@ export default function ReportsPage() {
                             </thead>
                             <tbody>
                                 {reports.map((report) => (
-                                    <tr key={report.filename} style={{ borderBottom: '1px solid var(--gray-50)' }}>
+                                    <tr key={report.filename} style={{ borderBottom: '1px solid var(--gray-50)', transition: 'background 0.15s' }}
+                                        onMouseEnter={e => (e.currentTarget.style.background = 'var(--gray-25)')}
+                                        onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
                                         <td style={{ padding: '1rem', fontWeight: 500, color: 'var(--gray-800)' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                <FileText size={16} color="var(--blue-500)" />
+                                                <FileText size={16} color="var(--lime-500)" />
                                                 {report.filename}
                                             </div>
                                         </td>
@@ -86,12 +88,12 @@ export default function ReportsPage() {
                                         </td>
                                         <td style={{ padding: '1rem', color: 'var(--gray-600)' }}>{report.total_documents} files</td>
                                         <td style={{ padding: '1rem' }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: report.success_rate > 90 ? 'var(--emerald-600)' : 'var(--warning-dark)' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: report.success_rate > 90 ? 'var(--lime-600)' : 'var(--warning)' }}>
                                                 <CheckCircle size={14} />
                                                 {report.success_rate.toFixed(1)}%
                                             </div>
                                         </td>
-                                        <td style={{ padding: '1rem', color: 'var(--emerald-600)', fontWeight: 500 }}>
+                                        <td style={{ padding: '1rem', color: 'var(--lime-600)', fontWeight: 500 }}>
                                             +{report.avg_lift.toFixed(1)} pts
                                         </td>
                                         <td style={{ padding: '1rem', textAlign: 'right' }}>

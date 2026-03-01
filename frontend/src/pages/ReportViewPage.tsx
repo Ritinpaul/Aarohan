@@ -12,7 +12,7 @@ export default function ReportViewPage() {
     const reportUrl = `/api/v1/pipeline/eval_reports/${filename}/summary`
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: 'var(--gray-50)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: 'white' }}>
             {/* Header Bar */}
             <div style={{
                 display: 'flex',
@@ -20,7 +20,7 @@ export default function ReportViewPage() {
                 justifyContent: 'space-between',
                 padding: '1rem 2rem',
                 backgroundColor: 'white',
-                borderBottom: '1px solid var(--gray-200)',
+                borderBottom: '1px solid var(--gray-100)',
                 flexShrink: 0
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -32,7 +32,7 @@ export default function ReportViewPage() {
                         <ArrowLeft size={20} />
                     </button>
                     <div>
-                        <h1 style={{ fontSize: '1.25rem', fontWeight: 600, margin: 0 }}>Report Viewer</h1>
+                        <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', fontWeight: 400, margin: 0 }}>Report Viewer</h1>
                         <p style={{ fontSize: '0.875rem', color: 'var(--gray-500)', margin: 0 }}>{filename}</p>
                     </div>
                 </div>
